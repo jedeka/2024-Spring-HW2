@@ -52,8 +52,9 @@ What is a sandwich attack, and how might it impact you when initiating a swap?
   
     
 
-## Bonus
-My Python script [bonus.py](bonus.py) will iteratively search for the , the highest possible amount of tokenB acheived is 27.048947753604427 ether tokenB, with the path: `tokenB->tokenA->tokenD->tokenC->tokenE->tokenD->tokenC->tokenE->tokenD->tokenC->tokenB`. 
 
-However, when I try to execute the path with Arbitrage.t.sol, the operation is reverted. Thus, the highest amount possible to be executed by Arbitrage.t.sol is 22.497221806974142 ether, with path: `tokenB->tokenA->tokenC->tokenE->tokenD->tokenC->tokenB`
+## Bonus
+My Python script [bonus.py](bonus.py) will iteratively search for every possible path leading to >= 20 units tokenB, and the highest possible amount of tokenB acheived is 27.048947753604427 units tokenB, with the path: `tokenB->tokenA->tokenD->tokenC->tokenE->tokenD->tokenC->tokenE->tokenD->tokenC->tokenB`. 
+
+However, when I try to execute the path with Arbitrage.t.sol, the operation is reverted. Thus, the highest amount possible to be executed by Arbitrage.t.sol is 22.497221806974142 units, with path: `tokenB->tokenA->tokenC->tokenE->tokenD->tokenC->tokenB`
 
