@@ -71,6 +71,11 @@ contract Arbitrage is Test {
         console2.log("Happy Hacking!");
     }
 
+
+    // helpers
+    mapping(address => address[]) successorTokens; // addresses or Tokens?
+    // address[5] tokenList = [address(tokenA), address(tokenB), address(tokenC), address(tokenD), address(tokenE)];
+    uint[] a;
     function testExploit() public {
         vm.startPrank(arbitrager);
         uint256 tokensBefore = tokenB.balanceOf(arbitrager);
@@ -79,6 +84,28 @@ contract Arbitrage is Test {
         /**
          * Please add your solution below
          */
+
+        address[] memory path = new address[](5);
+        path[0] = address(tokenB);
+        path[1] = address(tokenA);
+        path[2] = address(tokenD);
+        path[3] = address(tokenC);
+        path[4] = address(tokenB);
+
+        // address[] memory path = new address[](7);
+        // path[0] = address(tokenB);
+        // path[1] = address(tokenA);
+        // path[2] = address(tokenC);
+        // path[3] = address(tokenE);
+        // path[4] = address(tokenD);
+        // path[5] = address(tokenC);
+        // path[6] = address(tokenB);
+
+        uint deadline = block.timestamp + 60; // 60 seconds from now
+
+        uint256[] memory amounts = router.swapExactTokensForTokens(tokenB.balanceOf(arbitrager), 20 ether, path, arbitrager, deadline);
+        // for(uint i = 0; i < amounts.length; i++) console.log(amounts[i]);
+        
         /**
          * Please add your solution above
          */

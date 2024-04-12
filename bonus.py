@@ -11,7 +11,7 @@ liquidity = {
     ("tokenD", "tokenE"): (60, 25),
 }
 
-
+res = {}
 TOKENS = set(['tokenA', 'tokenB', 'tokenC', 'tokenD', 'tokenE'])
 
 def update_liquidity(pair, new_liquidity, liq=liquidity):
@@ -36,7 +36,7 @@ def find():
     current = (5, node)
     queue = [(node, ['tokenB'], current[0], liquidity.copy())]
     visited.add(node)
-
+    best = 0
     while queue:
         node, path, balance, liq = queue.pop(0)
 
@@ -64,15 +64,28 @@ def find():
                 update_liquidity(pair, (new_node, new_successor), liq=liq_cp)
             else:
                 update_liquidity(pair, (new_successor, new_node), liq=liq_cp)
-            
+
             # check if the successor is tokenB with amount >= 20 units
             successor_path = pathstr + f'->{successor}'
-            if successor == 'tokenB' and output_amt >= 20:
-                return successor_path, output_amt
+            # if successor == 'tokenB' and output_amt >= 20:
+            #     return successor_path, output_amt
+            if successor == 'tokenB':
+                if output_amt >= 20:
+                    res[successor_path] = output_amt
+                
+                    if output_amt > best:
+                        best = output_amt
+                        print(f"* current best: {successor_path}, with amount: {output_amt}")
+                
+                if output_amt >= 30:
+                    return successor_path, output_amt
             
             # update frontiers            
             queue.append((successor, path + [successor], output_amt, liq_cp))
 
+
 path, balance = find()
+# print(res)
+# path, balance = dfs("tokenB", ["tokenB"], 5, liquidity)
 print(f"path: {path}, tokenB balance={balance}")
 
